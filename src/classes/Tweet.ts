@@ -12,15 +12,17 @@ export class Tweet extends UserId{
         this._type = type;
     }
 
-    private replay(): string {
+    private reply(): string {
         return "";
     }
 
-    private like(): void {
+    private like(): void{
+        this.like();
+        console.log(`Likes ${this.like}`)
         
     }
 
-    public show(): string {
+    private show(): string {
         this.showReplies();
         return "";
     }
