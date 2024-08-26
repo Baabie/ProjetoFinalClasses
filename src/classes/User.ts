@@ -18,8 +18,12 @@ export class User extends Base {
     }
 
     public sendTweet(content: string, type: string): void {
-        const newTweet = new Tweet(content, type, this);  // Passa o próprio usuário ao criar o tweet
+        const newTweet = new Tweet(content, type, this);
         this._tweets.push(newTweet);
+    }
+
+    public replyToTweet(tweet: Tweet, content: string): void {
+        tweet.addReply(content, this);
     }
 
     public follow(user: User): void {
