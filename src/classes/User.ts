@@ -1,34 +1,46 @@
+import { Base } from "./Base";
 import { Tweet } from "./Tweet";
-import { UserId } from "./UserId";
 
-export class User extends UserId{
-    public name: string;
+export class User extends Base {
     public username: string;
+    public name: string;
     private _email: string;
     private _password: string;
+    private _tweets: Tweet[] = [];
+    private _following: User[] = [];
 
-    constructor(name: string, username: string, email: string, password: string){
-        super()
-
+    constructor(name: string, username: string, email: string, password: string) {
+        super();
         this.name = name;
         this.username = username;
         this._email = email;
         this._password = password;
     }
 
-    private sendTweet(tweet: Tweet): void{
-
+    public sendTweet(content: string, type: string): void {
+        const newTweet = new Tweet(content, type, this);  // Passa o próprio usuário ao criar o tweet
+        this._tweets.push(newTweet);
     }
 
-    private follow(user: User): void{
-
+    public follow(user: User): void {
+        if (!this._following.includes(user)) {
+            this._following.push(user);
+        }
     }
 
-    private showFeed(): string{
-        return ""
+    public showTweets(): Tweet[] {
+        return this._tweets;
     }
 
-    private showTweets(): string{
-        return ""
+    public likeTweet(tweet: Tweet): void {
+        tweet.like(this.id);
+    }
+
+    public get tweets(): Tweet[] {
+        return this._tweets;
+    }
+
+    public get following(): User[] {
+        return this._following;
     }
 }
